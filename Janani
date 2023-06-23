@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+// Function to perform slow division
+int slowDivision(int dividend, int divisor) {
+    int quotient = 0;
+    int remainder = 0;
+
+    for (int i = 31; i >= 0; i--) {
+        remainder <<= 1;              // Left shift remainder by 1
+        remainder |= (dividend >> i) & 1; // Set LSB of remainder with current bit of dividend
+
+        if (remainder >= divisor) {
+            remainder -= divisor;
+            quotient |= 1 << i;       // Set current bit of quotient
+        }
+    }
+
+    return quotient;
+}
+
+int main() {
+    int dividend = 25;
+    int divisor = 5;
+
+    int quotient = slowDivision(dividend, divisor);
+
+    printf("Quotient: %d\n", quotient);
+
+    return 0;
+}
